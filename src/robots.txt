@@ -1,0 +1,3 @@
+# Sample site: keep it out of search engines until it goes live.
+User-agent: *
+Disallow: /
