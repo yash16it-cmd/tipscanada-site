@@ -232,18 +232,18 @@ h2.title { font-family: 'Libre Caslon Text', Georgia, serif; font-weight: 400;
 /* ---------- booking band (the one colour band) ----------
    A soft "cotton candy" mesh gradient in the ShaderGradient manner, done in CSS:
    four blurred colour blooms drifting slowly, with a grain overlay on top.
-   Default palette stays in the TIPS red family. Add class "book--candy" for the
-   true pastel pink / lilac / sky version. */
-.book { position: relative; overflow: hidden; background: #b3242a; color: #fff; isolation: isolate; }
+   Default is the Cotton Candy palette: pink / lilac / sky. Add class
+   "book--red" on #book for the TIPS red-family version. */
+.book { position: relative; overflow: hidden; background: #e07ba6; color: #fff; isolation: isolate; }
 
 .book__mesh {
   position: absolute; inset: -25%; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(42% 52% at 18% 28%, #e8617a 0%, rgba(232,97,122,0) 62%),
-    radial-gradient(38% 46% at 78% 22%, #f2a49b 0%, rgba(242,164,155,0) 62%),
-    radial-gradient(52% 58% at 62% 82%, #d42a2f 0%, rgba(212,42,47,0) 66%),
-    radial-gradient(46% 48% at 8% 86%, #a81f2d 0%, rgba(168,31,45,0) 62%),
-    radial-gradient(34% 40% at 46% 48%, #ef8fa3 0%, rgba(239,143,163,0) 64%);
+    radial-gradient(42% 52% at 18% 28%, #ffb3d1 0%, rgba(255,179,209,0) 62%),
+    radial-gradient(38% 46% at 78% 22%, #bba6e8 0%, rgba(187,166,232,0) 62%),
+    radial-gradient(52% 58% at 62% 82%, #8fd0f0 0%, rgba(143,208,240,0) 66%),
+    radial-gradient(46% 48% at 8% 86%, #f58bb8 0%, rgba(245,139,184,0) 62%),
+    radial-gradient(34% 40% at 46% 48%, #fde2ef 0%, rgba(253,226,239,0) 64%);
   filter: blur(38px);
   animation: mesh 26s ease-in-out infinite alternate;
 }
@@ -255,21 +255,25 @@ h2.title { font-family: 'Libre Caslon Text', Georgia, serif; font-weight: 400;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* scrim — keeps white text at 4.5:1 wherever a pale bloom drifts behind it */
+/* scrim — keeps white text at 4.5:1 wherever a pale bloom drifts behind it.
+   Plum-toned rather than brown, so it deepens the pink instead of muddying it. */
 .book::after {
   content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  background: linear-gradient(104deg, rgba(62,6,14,.50) 0%, rgba(62,6,14,.34) 34%, rgba(62,6,14,.10) 54%, rgba(62,6,14,0) 68%);
+  background: linear-gradient(104deg, rgba(46,14,58,.52) 0%, rgba(46,14,58,.36) 34%, rgba(46,14,58,.12) 54%, rgba(46,14,58,0) 68%);
 }
 
-/* the literal cotton-candy palette, for comparison */
-.book--candy { background: #e07ba6; }
-.book--candy .book__mesh {
+/* the TIPS red-family palette, kept available */
+.book--red { background: #b3242a; }
+.book--red .book__mesh {
   background:
-    radial-gradient(42% 52% at 18% 28%, #ffb3d1 0%, rgba(255,179,209,0) 62%),
-    radial-gradient(38% 46% at 78% 22%, #bba6e8 0%, rgba(187,166,232,0) 62%),
-    radial-gradient(52% 58% at 62% 82%, #8fd0f0 0%, rgba(143,208,240,0) 66%),
-    radial-gradient(46% 48% at 8% 86%, #f58bb8 0%, rgba(245,139,184,0) 62%),
-    radial-gradient(34% 40% at 46% 48%, #fde2ef 0%, rgba(253,226,239,0) 64%);
+    radial-gradient(42% 52% at 18% 28%, #e8617a 0%, rgba(232,97,122,0) 62%),
+    radial-gradient(38% 46% at 78% 22%, #f2a49b 0%, rgba(242,164,155,0) 62%),
+    radial-gradient(52% 58% at 62% 82%, #d42a2f 0%, rgba(212,42,47,0) 66%),
+    radial-gradient(46% 48% at 8% 86%, #a81f2d 0%, rgba(168,31,45,0) 62%),
+    radial-gradient(34% 40% at 46% 48%, #ef8fa3 0%, rgba(239,143,163,0) 64%);
+}
+.book--red::after {
+  background: linear-gradient(104deg, rgba(62,6,14,.50) 0%, rgba(62,6,14,.34) 34%, rgba(62,6,14,.10) 54%, rgba(62,6,14,0) 68%);
 }
 
 @keyframes mesh {
