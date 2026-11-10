@@ -1,7 +1,9 @@
 // Eleventy turns the files in src/ into the finished website in _site/.
 export default function (eleventyConfig) {
-  // Copy these folders/files to the site as-is
+  // Copy these straight through, untouched
   eleventyConfig.addPassthroughCopy("src/images");
+  eleventyConfig.addPassthroughCopy("src/styles.css");
+  eleventyConfig.addPassthroughCopy("src/script.js");
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
 
