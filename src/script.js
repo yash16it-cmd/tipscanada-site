@@ -353,4 +353,12 @@
     nv.addEventListener('mouseleave', function () { nv.classList.remove('hot'); });
     nv.addEventListener('focusout', function () { nv.classList.remove('hot'); });
   })();
+
+  /* ---------- header shrinks once you scroll ---------- */
+  (function () {
+    var hd = document.querySelector('.site-header'); if (!hd) return;
+    var on = false;
+    function chk() { var y = window.pageYOffset || document.documentElement.scrollTop; var n = on ? y > 12 : y > 60; if (n !== on) { on = n; hd.classList.toggle('is-small', on); } }
+    window.addEventListener('scroll', chk, { passive: true }); chk();
+  })();
 })();

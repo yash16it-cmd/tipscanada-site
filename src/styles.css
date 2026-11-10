@@ -727,3 +727,19 @@ html.js .rev-ctl { display: flex; }
   .hero-proof { border-radius: 22px; padding: 12px 18px 12px 14px; gap: 6px 12px; }
   .hero-proof .pr-sub { border-left: 0; padding-left: 0; flex-basis: 100%; font-size: 13px; }
 }
+
+/* ---------- header shrinks on scroll ---------- */
+.site-header, .site-header .wrap, .logo-img, .nav, .nav a, .nav .nav-pill, .header-actions .btn, .menu-toggle { transition: padding .3s cubic-bezier(.2,.8,.2,1), height .3s cubic-bezier(.2,.8,.2,1), min-height .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, background .3s, border-color .3s, font-size .3s, width .3s, transform .35s cubic-bezier(.2,.8,.2,1), opacity .2s, color .2s, translate .25s; }
+.site-header.is-small { background: rgba(255,255,255,.92); box-shadow: 0 10px 30px rgba(40,30,60,.10); border-bottom-color: transparent; }
+.site-header.is-small .wrap { padding-top: 7px; padding-bottom: 7px; }
+.site-header.is-small .logo-img { height: 40px; }
+.site-header.is-small .nav { padding: 3px; box-shadow: 0 4px 14px rgba(40,30,60,.08); }
+.site-header.is-small .nav a { min-height: 36px; font-size: 14px; padding: 0 15px; }
+.site-header.is-small .nav .nav-pill { top: 3px; bottom: 3px; }
+.site-header.is-small .header-actions .btn { min-height: 42px; padding: 0 20px; font-size: 15px; }
+@media (max-width: 780px) {
+  .site-header.is-small .logo-img { height: 36px; }
+  .site-header.is-small .menu-toggle { width: 44px; height: 44px; }
+  .site-header.is-small .wrap { padding-top: 6px; padding-bottom: 6px; }
+  .site-header.is-small .nav a { min-height: 50px; font-size: 17px; padding: 0 20px; }
+}
