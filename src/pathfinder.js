@@ -201,8 +201,12 @@
       var b = el('button', 'pf-opt');
       b.type = 'button';
       b.setAttribute('aria-pressed', answers[q.key] === k ? 'true' : 'false');
+      b.setAttribute('data-glow', '');
       b.appendChild(el('strong', null, o.label));
       b.appendChild(el('span', null, o.sub));
+      var idx = el('i', 'pf-idx', ('0' + (Object.keys(q.options).indexOf(k) + 1)).slice(-2));
+      idx.setAttribute('aria-hidden', 'true');
+      b.appendChild(idx);
       b.addEventListener('click', function () { choose(q.key, k, b); });
       elOpts.appendChild(b);
     });

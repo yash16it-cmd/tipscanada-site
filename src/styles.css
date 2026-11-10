@@ -522,3 +522,86 @@ form.booking.sent .form-body { display: none; }
   .pc, .svc { animation: none !important; transition: none !important; }
   .book__mesh { animation: meshBreathe 14s ease-in-out infinite alternate !important; transform: none; }
 }
+
+/* ============================================================
+   Futuristic layer
+   Calm "instrument panel" feel on top of the warm system: precise
+   mono labels, faint dot-grids, frosted glass, light that follows the
+   cursor, a signal travelling the route. All motion switches off for
+   prefers-reduced-motion (see the end of this block).
+   ============================================================ */
+:root { --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; --glow: rgba(23,133,130,.16); }
+html { scroll-padding-top: 96px; }
+
+/* instrument-label type */
+.eyebrow, .pf-step, .pf-tag, .badge-pill, .member .lic, .g-mini { font-family: var(--mono); }
+.eyebrow { font-size: 12.5px; font-weight: 600; letter-spacing: .16em; }
+.eyebrow i { box-shadow: 0 0 12px rgba(23,133,130,.55); }
+.badge-pill { font-size: 12px; font-weight: 600; letter-spacing: .04em; }
+.pf-step { font-size: 12px; font-weight: 600; letter-spacing: .16em; }
+.pf-tag { font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.member .lic { font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.g-mini { font-weight: 600; }
+.stat b { font-variant-numeric: tabular-nums; }
+
+/* glass header */
+.site-header {
+  position: sticky; top: 0;
+  background: rgba(255,255,255,.74);
+  -webkit-backdrop-filter: saturate(1.6) blur(16px); backdrop-filter: saturate(1.6) blur(16px);
+  border-bottom: 1px solid rgba(15,99,96,.10);
+}
+
+/* faint dot-grid depth */
+.hero::before, .pathfinder::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(rgba(15,99,96,.22) 1.1px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 72% 85% at 72% 38%, #000 0%, transparent 76%);
+          mask-image: radial-gradient(ellipse 72% 85% at 72% 38%, #000 0%, transparent 76%);
+}
+.pathfinder { position: relative; overflow: hidden; }
+.pathfinder::before { -webkit-mask-image: radial-gradient(ellipse 60% 55% at 85% 18%, #000 0%, transparent 78%); mask-image: radial-gradient(ellipse 60% 55% at 85% 18%, #000 0%, transparent 78%); }
+.pathfinder .wrap { position: relative; z-index: 1; }
+.pf-route { background-color: var(--tint); background-image: radial-gradient(rgba(15,99,96,.15) 1px, transparent 1.3px); background-size: 22px 22px; }
+
+/* cursor spotlight */
+[data-glow] { position: relative; --mx: 50%; --my: 50%; }
+[data-glow]::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  opacity: 0; transition: opacity .35s ease;
+  background: radial-gradient(360px circle at var(--mx) var(--my), var(--glow), transparent 62%);
+}
+[data-glow]:hover::after { opacity: 1; }
+.pf-opt { padding-right: 56px; }
+.pf-idx { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font: 600 12px var(--mono); font-style: normal; color: #9db3b0; transition: color .2s; }
+.pf-opt:hover .pf-idx, .pf-opt[aria-pressed="true"] .pf-idx { color: var(--teal); }
+
+/* pathfinder: circling edge light + a signal travelling the route */
+@property --pfa { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.pf-card { position: relative; }
+.pf-card::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none; z-index: 3;
+  background: conic-gradient(from var(--pfa), transparent 0 70%, rgba(23,133,130,.95) 88%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); mask-composite: exclude;
+  animation: pfSpin 9s linear infinite;
+}
+@keyframes pfSpin { to { --pfa: 360deg; } }
+.pf-stages.live .pf-node { box-shadow: 0 0 0 4px rgba(23,133,130,.10), 0 6px 18px rgba(23,133,130,.18); }
+.pf-stages.live .pf-stage:not(.last)::after {
+  content: ""; position: absolute; left: 19px; top: 44px; width: 6px; height: 6px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 0 2px var(--teal), 0 0 12px 4px rgba(23,133,130,.55);
+  opacity: 0; animation: pfSignal 2.2s ease-in-out infinite; animation-delay: calc(var(--i) * 260ms + 1.5s);
+}
+@keyframes pfSignal { 0% { top: 44px; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { top: calc(100% - 2px); opacity: 0; } }
+
+/* scroll progress + magnetic buttons */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60; background: var(--teal); transform-origin: left; transform: scaleX(var(--p, 0)); pointer-events: none; }
+.btn { transition: background .2s ease, translate .25s cubic-bezier(.2,.7,.2,1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-card::before { animation: none; }
+  .pf-stages.live .pf-stage::after { display: none; }
+  .btn { transition: background .2s ease; }
+}

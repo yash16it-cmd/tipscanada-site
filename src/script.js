@@ -77,16 +77,48 @@
     });
   }
 
+  /* numbers count up when they appear (the final text is always the original) */
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function countUp(b) {
+    var raw = b.textContent;
+    var m = raw.match(/^(\D*)([\d,]+(?:\.\d+)?)(.*)$/);
+    if (!m || reduceMotion) return;
+    var target = parseFloat(m[2].replace(/,/g, ''));
+    var dec = (m[2].split('.')[1] || '').length;
+    var comma = m[2].indexOf(',') > -1;
+    function fmt(v) {
+      var s = comma ? v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }) : v.toFixed(dec);
+      return m[1] + s + m[3];
+    }
+    var t0 = null;
+    b.textContent = fmt(0);
+    (function tick(ts) {
+      if (t0 === null) t0 = ts;
+      var k = Math.min((ts - t0) / 1100, 1);
+      b.textContent = k < 1 ? fmt(target * (1 - Math.pow(1 - k, 3))) : raw;
+      if (k < 1) requestAnimationFrame(tick);
+    })(performance.now());
+  }
+  function countAll() {
+    Array.prototype.forEach.call(grid.querySelectorAll('.stat b'), countUp);
+  }
+
   if (grid && dots) {
     SLIDES.forEach(function (slide, i) {
       var b = document.createElement('button');
       b.type = 'button';
       b.setAttribute('aria-label', 'Show figures: ' + slide.label);
       b.innerHTML = '<i></i>';
-      b.addEventListener('click', function () { drawSlide(i); });
+      b.addEventListener('click', function () { drawSlide(i); countAll(); });
       dots.appendChild(b);
     });
     drawSlide(0);
+    if ('IntersectionObserver' in window) {
+      var seen = new IntersectionObserver(function (en) {
+        if (en[0].isIntersecting) { countAll(); seen.disconnect(); }
+      }, { threshold: 0.35 });
+      seen.observe(grid);
+    }
   }
 
   /* ---------- open / closed, in Toronto time ---------- */
@@ -183,4 +215,44 @@
   } else {
     var pfc = document.getElementById('pf'); if (pfc) pfc.classList.remove('reveal');
   }
+
+  /* ---------- light that follows the cursor ---------- */
+  if (window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+    Array.prototype.forEach.call(document.querySelectorAll('.rev-card, .svc, .stat'), function (n) {
+      n.setAttribute('data-glow', '');
+    });
+    document.addEventListener('pointermove', function (e) {
+      var t = e.target.closest && e.target.closest('[data-glow]');
+      if (!t) return;
+      var r = t.getBoundingClientRect();
+      t.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }, { passive: true });
+  }
+
+  /* ---------- magnetic buttons ---------- */
+  if (!calm && window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+    Array.prototype.forEach.call(document.querySelectorAll('.btn'), function (b) {
+      b.addEventListener('pointermove', function (e) {
+        var r = b.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+        var dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+        b.style.translate = (dx * 10).toFixed(1) + 'px ' + (dy * 8).toFixed(1) + 'px';
+      });
+      b.addEventListener('pointerleave', function () { b.style.translate = '0px 0px'; });
+    });
+  }
+
+  /* ---------- scroll progress ---------- */
+  var bar = document.createElement('div');
+  bar.className = 'progress';
+  bar.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(bar);
+  function onScroll() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.setProperty('--p', max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)).toFixed(4) : 0);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
