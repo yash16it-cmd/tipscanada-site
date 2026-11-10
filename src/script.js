@@ -281,7 +281,7 @@
         }
         var a = (.18 + .5 * Math.abs(Math.sin(p.t))) * (p.warm ? .6 : 1);
         var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
-        var col = p.warm ? '212,42,47' : '23,133,130';
+        var col = p.warm ? '212,42,47' : '117,128,235';
         g.addColorStop(0, 'rgba(' + col + ',' + a + ')'); g.addColorStop(1, 'rgba(' + col + ',0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 6, 0, 6.2832); ctx.fill();
       }
