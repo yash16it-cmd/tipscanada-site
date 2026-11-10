@@ -96,8 +96,8 @@ h2.title { font-family: 'Libre Caslon Text', Georgia, serif; font-weight: 400;
 .site-header .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; padding-top: 16px; padding-bottom: 16px; }
 
 .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.logo-img { display: block; height: 56px; width: auto; }
-.logo-img--foot { height: 64px; }
+.logo-img { display: block; height: 64px; width: auto; }
+.logo-img--foot { height: 72px; }
 .logo span.bar { width: 8px; height: 38px; border-radius: 4px; background: var(--red); }
 .logo span.name { font-weight: 800; font-size: 25px; color: var(--ink); line-height: 1; }
 .logo span.sub { font-size: 9px; font-weight: 700; letter-spacing: 0.26em; color: var(--muted); margin-top: 3px; }
@@ -186,6 +186,7 @@ h2.title { font-family: 'Libre Caslon Text', Georgia, serif; font-weight: 400;
   display: flex; align-items: center; justify-content: center;
   font-size: 8px; font-weight: 700; color: var(--faint); text-align: center; line-height: 1.1;
 }
+.g-slot img { display: block; width: 40px; height: 40px; }
 .g-slot .word { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--muted); }
 .g-rule { width: 1px; align-self: stretch; background: #e6eae8; }
 .g-score { font-family: 'Libre Caslon Text', Georgia, serif; font-size: 44px; line-height: 1; color: var(--teal-deep); }
@@ -201,13 +202,14 @@ h2.title { font-family: 'Libre Caslon Text', Georgia, serif; font-weight: 400;
 .rev-foot .who { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .rev-foot .who strong { font-size: 15px; }
 .rev-foot .who span { font-size: 13px; color: var(--muted); }
+.g-mini img { width: 16px; height: 16px; margin-right: 6px; }
 .g-mini { display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); white-space: nowrap; }
 
 /* ---------- quick call ---------- */
 .callout { position: relative; overflow: hidden; }
 .callout .wrap { position: relative; max-width: 940px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; }
 .callout-who { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.callout .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; object-position: center 18%; border: 4px solid #fff; box-shadow: 0 10px 26px rgba(15,99,96,.18); }
+.callout .avatar { width: 154px; height: 154px; border-radius: 50%; object-fit: cover; object-position: center 20%; border: 4px solid #fff; box-shadow: 0 10px 26px rgba(15,99,96,.18); }
 .callout-who figcaption { font-size: 14px; color: var(--muted); }
 .callout-who figcaption strong { color: var(--ink); }
 .callout h2 { font-size: clamp(32px, 4.8vw, 58px); }
@@ -229,6 +231,8 @@ h2.title { font-family: 'Libre Caslon Text', Georgia, serif; font-weight: 400;
 /* ---------- team ---------- */
 .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; }
 .member { display: flex; flex-direction: column; gap: 16px; }
+.rcic { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.rcic img { display: block; height: 72px; width: auto; mix-blend-mode: multiply; }
 .member .ph { aspect-ratio: 1/1; border-radius: 50%; background: var(--tint); display: block; width: 100%; height: auto; object-fit: cover; object-position: center 18%; }
 .member .meta { display: flex; flex-direction: column; gap: 6px; text-align: center; }
 .member strong { font-size: 20px; }
@@ -401,7 +405,13 @@ form.booking.sent .form-body { display: none; }
   .phonebar a.go { background: var(--red); }
   .rev-grid { grid-template-columns: 1fr; }
   .rev-grid .rev-card:last-child { grid-column: span 1; }
-  .logo-img { height: 46px; }
+  .logo-img { height: 50px; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); gap: 26px 14px; }
+  .member { gap: 12px; }
+  .member strong { font-size: 17px; }
+  .member .role { font-size: 13px; }
+  .member .lic { font-size: 11.5px; padding: 6px 10px; }
+  .rcic { align-items: flex-start; }
 }
 
 @media (max-width: 360px) {
