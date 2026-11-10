@@ -279,9 +279,9 @@
           if (d < 14000) { var f = (1 - d / 14000) * 1.6; p.x += dx / 60 * f; p.y += dy / 60 * f; }
           if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
         }
-        var a = .35 + .65 * Math.abs(Math.sin(p.t));
+        var a = (.18 + .5 * Math.abs(Math.sin(p.t))) * (p.warm ? .6 : 1);
         var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
-        var col = p.warm ? '255,214,150' : '190,247,238';
+        var col = p.warm ? '212,42,47' : '23,133,130';
         g.addColorStop(0, 'rgba(' + col + ',' + a + ')'); g.addColorStop(1, 'rgba(' + col + ',0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 6, 0, 6.2832); ctx.fill();
       }
@@ -299,5 +299,45 @@
       h.style.setProperty('--sx', mx + 'px'); h.style.setProperty('--sy', my + 'px');
     }, { passive: true });
     h.addEventListener('pointerleave', function () { mx = my = -999; });
+  })();
+
+  /* ---------- reviews carousel (left to right) ---------- */
+  (function () {
+    var tr = document.getElementById('revTrack'); if (!tr) return;
+    var cards = tr.querySelectorAll('.rev-card'), dots = document.getElementById('revDots');
+    var prev = document.getElementById('revPrev'), next = document.getElementById('revNext');
+    var timer = null, paused = false;
+    function step() { var c = cards[0]; return c ? c.getBoundingClientRect().width + 22 : 300; }
+    function perView() { return Math.max(1, Math.round(tr.clientWidth / step())); }
+    function pages() { return Math.max(1, cards.length - perView() + 1); }
+    function idx() { return Math.round(tr.scrollLeft / step()); }
+    function go(i) { tr.scrollTo({ left: i * step(), behavior: calm ? 'auto' : 'smooth' }); }
+    function build() {
+      dots.innerHTML = '';
+      for (var i = 0; i < pages(); i++) (function (n) {
+        var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Show review ' + (n + 1));
+        b.addEventListener('click', function () { go(n); }); dots.appendChild(b);
+      })(i);
+      mark();
+    }
+    function mark() {
+      var cur = Math.min(idx(), pages() - 1);
+      Array.prototype.forEach.call(dots.children, function (b, n) { b.setAttribute('aria-current', n === cur ? 'true' : 'false'); });
+    }
+    function advance() { var i = idx(); go(i >= pages() - 1 ? 0 : i + 1); }
+    prev.addEventListener('click', function () { var i = idx(); go(i <= 0 ? pages() - 1 : i - 1); restart(); });
+    next.addEventListener('click', function () { advance(); restart(); });
+    tr.addEventListener('scroll', function () { window.requestAnimationFrame(mark); }, { passive: true });
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() { if (calm || paused || timer) return; timer = setInterval(advance, 5200); }
+    function restart() { stop(); start(); }
+    var box = document.getElementById('revCar');
+    ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { box.addEventListener(ev, function () { paused = true; stop(); }, { passive: true }); });
+    ['mouseleave', 'focusout'].forEach(function (ev) { box.addEventListener(ev, function () { paused = false; start(); }); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { if (en[0].isIntersecting) start(); else stop(); }, { threshold: 0.3 }).observe(box);
+    } else { start(); }
+    window.addEventListener('resize', build);
+    build();
   })();
 })();
