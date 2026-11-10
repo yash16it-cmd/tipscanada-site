@@ -340,4 +340,17 @@
     window.addEventListener('resize', build);
     build();
   })();
+
+  /* ---------- sliding pill in the main menu ---------- */
+  (function () {
+    var nv = document.getElementById('nav'); var pill = nv && nv.querySelector('.nav-pill');
+    if (!pill || !window.matchMedia('(hover: hover) and (min-width: 781px)').matches) return;
+    function to(a) { pill.style.width = a.offsetWidth + 'px'; pill.style.transform = 'translateX(' + a.offsetLeft + 'px)'; nv.classList.add('hot'); }
+    Array.prototype.forEach.call(nv.querySelectorAll('a'), function (a) {
+      a.addEventListener('mouseenter', function () { if (!nv.classList.contains('hot')) { pill.style.transition = 'none'; to(a); pill.offsetWidth; pill.style.transition = ''; } else to(a); });
+      a.addEventListener('focus', function () { to(a); });
+    });
+    nv.addEventListener('mouseleave', function () { nv.classList.remove('hot'); });
+    nv.addEventListener('focusout', function () { nv.classList.remove('hot'); });
+  })();
 })();
