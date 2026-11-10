@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "eleventy",
-    "start": "eleventy --serve"
+    "start": "eleventy --serve",
+    "fetch-images": "node scripts/fetch-images.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0"
