@@ -605,3 +605,61 @@ html { scroll-padding-top: 96px; }
   .pf-stages.live .pf-stage::after { display: none; }
   .btn { transition: background .2s ease; }
 }
+
+/* ============================================================
+   Hero, reimagined: a night-sky aurora with drifting light,
+   fireflies, a glowing route that threads the postcards and a
+   cursor spotlight. Static for prefers-reduced-motion.
+   ============================================================ */
+.hero { background: radial-gradient(120% 90% at 78% 8%, #134f4d 0%, #0b2f2e 42%, #061a1a 100%); color: #fff; isolation: isolate; }
+.hero::before { background-image: radial-gradient(rgba(190,247,238,.35) 1px, transparent 1.4px); -webkit-mask-image: radial-gradient(ellipse 70% 80% at 70% 40%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 70% 80% at 70% 40%, #000 0%, transparent 75%); opacity: .5; }
+.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; z-index: 2; background: linear-gradient(90deg, transparent, rgba(123,224,200,.9), transparent); }
+.hero .wrap { z-index: 3; }
+
+.aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.aurora i { position: absolute; display: block; border-radius: 50%; filter: blur(70px); mix-blend-mode: screen; will-change: transform; }
+.aurora .a1 { width: 760px; height: 560px; right: -160px; top: -200px; background: radial-gradient(closest-side, rgba(31,190,178,.75), transparent); animation: aur1 17s ease-in-out infinite alternate; }
+.aurora .a2 { width: 620px; height: 520px; left: -200px; bottom: -220px; background: radial-gradient(closest-side, rgba(110,120,255,.45), transparent); animation: aur2 21s ease-in-out infinite alternate; }
+.aurora .a3 { width: 520px; height: 420px; left: 38%; top: 30%; background: radial-gradient(closest-side, rgba(123,224,200,.40), transparent); animation: aur3 14s ease-in-out infinite alternate; }
+.aurora .a4 { width: 360px; height: 300px; right: 8%; bottom: -60px; background: radial-gradient(closest-side, rgba(255,184,110,.38), transparent); animation: aur2 19s ease-in-out infinite alternate-reverse; }
+@keyframes aur1 { to { transform: translate3d(-140px, 120px, 0) scale(1.18); } }
+@keyframes aur2 { to { transform: translate3d(180px, -100px, 0) scale(1.22); } }
+@keyframes aur3 { to { transform: translate3d(-120px, -80px, 0) scale(.86); } }
+.sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.spot { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(420px circle at var(--sx, 70%) var(--sy, 30%), rgba(190,247,238,.16), transparent 62%); mix-blend-mode: screen; transition: opacity .4s; }
+
+.hero h1 { color: #fff; text-shadow: 0 2px 40px rgba(0,0,0,.35); }
+.hero h1 .w { display: inline-block; opacity: 0; transform: translateY(.55em); filter: blur(10px); animation: wordIn .9s cubic-bezier(.2,.7,.2,1) forwards; animation-delay: calc(var(--i) * 70ms + 150ms); }
+.hero h1 .spark { display: inline; }
+.hero h1 .spark .w { background: linear-gradient(100deg, #7be0c8 0%, #ffffff 35%, #ffd9a0 60%, #7be0c8 100%); background-size: 240% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; animation: wordIn .9s cubic-bezier(.2,.7,.2,1) forwards, shimmer 6s linear 1.4s infinite; animation-delay: calc(var(--i) * 70ms + 150ms), 1.4s; }
+@keyframes wordIn { to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes shimmer { to { background-position: -240% 0; } }
+.hero p.lede { color: rgba(255,255,255,.82); animation: fadeUp .9s .9s both cubic-bezier(.2,.7,.2,1); }
+.hero .hero-actions { animation: fadeUp .9s 1.05s both cubic-bezier(.2,.7,.2,1); }
+.hero .badge-pill { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22); color: #c9f5ee; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); animation: fadeUp .9s both cubic-bezier(.2,.7,.2,1); }
+.hero .badge-pill i { background: #7be0c8; box-shadow: 0 0 0 0 rgba(123,224,200,.7); animation: ping 2.2s ease-out infinite; }
+@keyframes ping { to { box-shadow: 0 0 0 10px rgba(123,224,200,0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.hero .textlink { color: #c9f5ee; }
+.hero .hero-find { color: rgba(255,255,255,.7); animation: fadeUp .9s 1.2s both; }
+.hero .hero-find strong { color: #7be0c8; border-color: rgba(123,224,200,.4); }
+.hero .btn { position: relative; overflow: hidden; animation: halo 2.8s ease-out infinite; }
+.hero .btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.38), transparent); transform: skewX(-20deg); animation: sheen 4.5s ease-in-out 1.6s infinite; pointer-events: none; }
+@keyframes halo { 0% { box-shadow: 0 0 0 0 rgba(212,42,47,.55), 0 10px 30px rgba(212,42,47,.35); } 70%, 100% { box-shadow: 0 0 0 18px rgba(212,42,47,0), 0 10px 30px rgba(212,42,47,.35); } }
+@keyframes sheen { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+
+.cardfield { animation: cardsIn 1.3s .35s both cubic-bezier(.2,.7,.2,1); }
+@keyframes cardsIn { from { opacity: 0; scale: .86; filter: blur(14px); } to { opacity: 1; scale: 1; filter: blur(0); } }
+.pc { box-shadow: 0 0 0 1px rgba(255,255,255,.55), 0 30px 60px rgba(0,0,0,.5), 0 0 50px rgba(123,224,200,.18); z-index: 1; }
+.pc figcaption { color: #0c3b3a; }
+.route { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; overflow: visible; filter: drop-shadow(0 0 6px rgba(190,247,238,.8)); }
+.route path { animation: flow 2.4s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -24; } }
+.route circle { filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 16px #7be0c8); }
+
+@media (max-width: 900px) { .route { display: none; } .aurora i { filter: blur(50px); } }
+@media (prefers-reduced-motion: reduce) {
+  .aurora i, .hero .btn, .hero .btn::after, .route path, .hero .badge-pill i, .hero h1 .spark .w { animation: none !important; }
+  .hero h1 .w, .hero p.lede, .hero .hero-actions, .hero .badge-pill, .hero .hero-find, .cardfield { animation: none !important; opacity: 1; transform: none; filter: none; }
+  .route circle { display: none; }
+}
