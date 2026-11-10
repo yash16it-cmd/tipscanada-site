@@ -141,4 +141,46 @@
         });
     });
   }
+
+  /* ---------- depth + reveal ----------
+     The postcards lean away from the cursor, each by its own amount, using the
+     separate CSS "translate" property so it stacks on top of their float animation.
+     Reveals fade cards in as they scroll into view. Both stay off for reduced motion. */
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var hero = document.getElementById('top');
+  var cards = hero ? hero.querySelectorAll('.pc') : [];
+  if (hero && cards.length && !calm && window.matchMedia('(hover: hover) and (min-width: 901px)').matches) {
+    var depth = [14, 24, 10, 30, 18, 12];
+    hero.addEventListener('pointermove', function (e) {
+      var r = hero.getBoundingClientRect();
+      var nx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      var ny = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      Array.prototype.forEach.call(cards, function (c, i) {
+        var d = depth[i % depth.length];
+        c.style.translate = (-nx * d).toFixed(1) + 'px ' + (-ny * d).toFixed(1) + 'px';
+      });
+    });
+    hero.addEventListener('pointerleave', function () {
+      Array.prototype.forEach.call(cards, function (c) { c.style.translate = '0px 0px'; });
+    });
+  }
+
+  if (!calm && 'IntersectionObserver' in window) {
+    var targets = document.querySelectorAll('.rev-card, .member, .impact-split');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    Array.prototype.forEach.call(targets, function (t, i) {
+      t.classList.add('reveal');
+      t.style.transitionDelay = ((i % 4) * 90) + 'ms';
+      io.observe(t);
+    });
+    var pf = document.getElementById('pf');
+    if (pf) io.observe(pf);
+  } else {
+    var pfc = document.getElementById('pf'); if (pfc) pfc.classList.remove('reveal');
+  }
 })();

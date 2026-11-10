@@ -50,6 +50,7 @@ description: "Licensed Canadian immigration consultants (RCICs) in Mississauga. 
         <a class="btn" href="#book">Book a free assessment <span aria-hidden="true">→</span></a>
         <a class="textlink" href="tel:+19058748477">or call 905-874-8477</a>
       </div>
+      <a class="hero-find" href="#pathfinder">Not sure where to start? <strong>See your route</strong> <span aria-hidden="true">↓</span></a>
     </div>
 
     <div class="cardfield">
@@ -78,6 +79,41 @@ description: "Licensed Canadian immigration consultants (RCICs) in Mississauga. 
         <figcaption>An ordinary Tuesday</figcaption>
       </figure>
     </div>
+  </div>
+</section>
+
+<!-- ================= PATHFINDER ================= -->
+<section class="section section--white pathfinder" id="pathfinder" aria-labelledby="pf-title">
+  <div class="wrap">
+    <div class="pf-head">
+      <span class="eyebrow"><i aria-hidden="true"></i>Pathfinder</span>
+      <h2 class="title" id="pf-title">See your route to Canada in 30 seconds.</h2>
+      <p>Three taps. We sketch the typical route for your situation, then a licensed consultant confirms what actually fits you.</p>
+    </div>
+
+    <div class="pf-card reveal" id="pf">
+      <div class="pf-ask">
+        <div class="pf-progress" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p class="pf-step" id="pfStep">Question 1 of 3</p>
+        <h3 class="pf-q" id="pfQ" tabindex="-1"></h3>
+        <div class="pf-options" id="pfOptions" role="group" aria-labelledby="pfQ"></div>
+        <div class="pf-nav"><button type="button" class="pf-link" id="pfBack" hidden>← Back</button></div>
+      </div>
+
+      <div class="pf-route">
+        <div class="pf-route-head">
+          <strong id="pfRouteLabel">Your route will draw here</strong>
+          <span class="pf-tags" id="pfTags"></span>
+        </div>
+        <ol class="pf-stages ghost" id="pfStages"></ol>
+        <p class="pf-fine">A typical route, not a promise and not an assessment of your eligibility. Rules and processing times change, and every file is different.</p>
+        <div class="pf-cta" id="pfCta" hidden>
+          <a class="btn" href="#book" id="pfGo">Talk through this route <span aria-hidden="true">→</span></a>
+          <button type="button" class="pf-link" id="pfReset">Start over</button>
+        </div>
+      </div>
+    </div>
+    <p class="vh" id="pfStatus" aria-live="polite"></p>
   </div>
 </section>
 
@@ -324,6 +360,7 @@ description: "Licensed Canadian immigration consultants (RCICs) in Mississauga. 
     <form class="booking" id="lead" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/" novalidate>
       <input type="hidden" name="form-name" value="booking">
       <input type="hidden" name="subject" value="New assessment request (#%{submissionId})">
+      <input type="hidden" name="pathway" id="f-pathway" value="">
       <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
 
       <div class="form-body">
