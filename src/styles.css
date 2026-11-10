@@ -251,7 +251,7 @@ h2.title { font-family: 'Libre Caslon Text', Georgia, serif; font-weight: 400;
     radial-gradient(46% 48% at 8% 86%, #f58bb8 0%, rgba(245,139,184,0) 62%),
     radial-gradient(34% 40% at 46% 48%, #fde2ef 0%, rgba(253,226,239,0) 64%);
   filter: blur(38px);
-  animation: mesh 20s ease-in-out infinite alternate;
+  animation: mesh 16s ease-in-out infinite alternate;
 }
 
 /* grain — the texture that makes a shader gradient read as a shader gradient */
@@ -284,10 +284,10 @@ h2.title { font-family: 'Libre Caslon Text', Georgia, serif; font-weight: 400;
 
 @keyframes mesh {
   0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
-  25%  { transform: translate3d(9%, -7%, 0) rotate(7deg) scale(1.14); }
-  50%  { transform: translate3d(-8%, 8%, 0) rotate(-5deg) scale(1.06); }
-  75%  { transform: translate3d(-5%, -6%, 0) rotate(4deg) scale(1.16); }
-  100% { transform: translate3d(7%, 6%, 0) rotate(-7deg) scale(1.1); }
+  25%  { transform: translate3d(13%, -10%, 0) rotate(16deg) scale(1.2); }
+  50%  { transform: translate3d(-12%, 11%, 0) rotate(-12deg) scale(1.05); }
+  75%  { transform: translate3d(-8%, -9%, 0) rotate(10deg) scale(1.24); }
+  100% { transform: translate3d(11%, 9%, 0) rotate(-16deg) scale(1.12); }
 }
 
 /* Reduce-motion users get no travelling or rotating; the blooms just breathe
@@ -295,7 +295,6 @@ h2.title { font-family: 'Libre Caslon Text', Georgia, serif; font-weight: 400;
 @keyframes meshBreathe {
   0%   { opacity: 1; }
   100% { opacity: .72; }
-}
 }
 
 .book .wrap { position: relative; z-index: 3; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; padding-top: 100px; padding-bottom: 100px; }
