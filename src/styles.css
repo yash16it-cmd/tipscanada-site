@@ -1022,3 +1022,16 @@ header.site-header .hpill .menu-toggle { display: none; }
   .statement .stat, .statement .stat:nth-child(even) { width: calc(50% - 11px); box-sizing: border-box; padding: 22px 18px 20px; }
   .statement .stat b, .statement .stat:nth-child(even) b { font-size: 44px; }
 }
+
+/* ---------- Review arrows: one floating pill, ghost previous + solid next ---------- */
+.rev-sec .rev-arrows { gap: 6px; padding: 6px; background: #fff; border-radius: 999px; box-shadow: 0 10px 28px rgba(20,22,31,.10), 0 0 0 1px rgba(20,22,31,.05); }
+.rev-sec .rev-arrows button { width: 48px; height: 48px; border: 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; font-size: 0; transition: background .25s cubic-bezier(.2,.8,.2,1), color .25s, transform .2s cubic-bezier(.2,.8,.2,1); }
+.rev-sec .rev-arrows button svg { transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+.rev-sec .rev-arrows #revPrev { background: #f1eef0; color: var(--ink); }
+.rev-sec .rev-arrows #revNext { background: var(--ink); color: #fff; }
+.rev-sec .rev-arrows #revPrev:hover, .rev-sec .rev-arrows #revNext:hover { background: var(--blue); color: #fff; }
+.rev-sec .rev-arrows #revPrev:hover svg { transform: translateX(-3px); }
+.rev-sec .rev-arrows #revNext:hover svg { transform: translateX(3px); }
+.rev-sec .rev-arrows button:active { transform: scale(.92); }
+.rev-sec .rev-arrows button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .rev-sec .rev-arrows button, .rev-sec .rev-arrows button svg { transition: none; } }
