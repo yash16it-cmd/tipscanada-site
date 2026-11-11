@@ -936,3 +936,25 @@ h2.title { font-family: var(--disp); font-weight: 800; letter-spacing: -0.035em;
 .callout h2, .book h2, #team h2.title, .pf-head h2.title { font-size: clamp(34px, 4.8vw, 60px); }
 .field .opt { display: inline; }
 .hx-google img { mix-blend-mode: multiply; }
+
+/* ---------- Colour system: cloud white 60 / scarlet red 30 / cobalt blue 10 ----------
+   Colour changes only. Cobalt is the action colour (buttons, links); red is the brand band colour. */
+:root { --blue: #1565c0; --blue-dark: #0f4f9c; }
+:focus-visible { outline-color: var(--blue); }
+.btn { background: var(--blue); }
+.btn:hover { background: var(--blue-dark); }
+.callout .btn, .book .btn { box-shadow: 0 14px 30px rgba(21,101,192,.3); }
+.book form.booking .btn { box-shadow: none; }
+.hx-btn { background: var(--blue); color: #fff; }
+.hx-btn:hover { background: var(--blue-dark); color: #fff; }
+.phonebar a.go { background: var(--blue); }
+.svc-go, .svc .go, .pf-link { color: var(--blue); }
+.rev-all:hover, .rev-arrows button:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--blue); }
+/* How it works becomes a scarlet band */
+.hiw { background: var(--red); }
+.hiw::before { background: radial-gradient(700px 420px at 12% 0%, rgba(255,255,255,.16), transparent 70%), url(/images/contours.svg) center / cover no-repeat; }
+.hiw .eyebrow { color: #fff; }
+.hiw .eyebrow i { background: #fff; }
+.hiw-title { color: #fff; }
+.hiw-title span { color: #ffe3e0; }
