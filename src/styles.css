@@ -1035,3 +1035,42 @@ header.site-header .hpill .menu-toggle { display: none; }
 .rev-sec .rev-arrows button:active { transform: scale(.92); }
 .rev-sec .rev-arrows button:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .rev-sec .rev-arrows button, .rev-sec .rev-arrows button svg { transition: none; } }
+
+/* ---------- Motion with character: cards are "dealt" and settle with a small bounce ---------- */
+:root { --spring: cubic-bezier(.34,1.56,.64,1); --glide: cubic-bezier(.22,.8,.2,1); }
+/* The practice: old hand lifts away, new hand drops in and settles straight */
+.statement .stat-grid { transition: min-height .3s var(--glide); }
+.statement .stat-grid.is-out .stat { animation: dealOut .38s cubic-bezier(.5,0,.9,.4) both; animation-delay: calc(var(--i) * 45ms); }
+.statement .stat-grid.is-in .stat { animation: dealIn .8s var(--spring) both; animation-delay: calc(var(--i) * 95ms); }
+@keyframes dealOut { to { opacity: 0; transform: translateY(-26px) rotate(var(--r)) scale(.9); } }
+@keyframes dealIn { from { opacity: 0; transform: translateY(54px) rotate(calc(var(--r) * -1.8)) scale(.86); } 35% { opacity: 1; } to { opacity: 1; transform: none; } }
+.statement #slideLabel { transition: opacity .3s ease, transform .5s var(--spring); }
+.statement #slideLabel.is-out { opacity: 0; transform: rotate(-8deg) translateY(-10px) scale(.9); }
+.statement #slideLabel.is-in { animation: labelIn .7s var(--spring) both; }
+@keyframes labelIn { from { opacity: 0; transform: rotate(-14deg) translateY(14px) scale(.85); } to { opacity: 1; transform: rotate(-8deg); } }
+.statement .dots button i { transition: background .25s ease, width .4s var(--spring), border-radius .4s; }
+.statement .dots button[aria-current="true"] i { width: 26px; border-radius: 99px; }
+.statement .stat { transition: box-shadow .3s ease, translate .35s var(--spring); }
+.statement .stat:hover { translate: 0 -6px; box-shadow: 0 26px 46px rgba(80,0,10,.34); }
+/* Reviews: the cards at the sides step back, the ones in view pop forward */
+.rev-sec .rev-grid.rev-live .rev-card { transition: transform .6s var(--spring), opacity .45s ease, box-shadow .45s ease; }
+.rev-sec .rev-grid.rev-live .rev-card:not(.is-on) { opacity: .45; transform: scale(.95) translateY(6px); }
+.rev-sec .rev-grid.rev-live .rev-card.is-on { opacity: 1; transform: none; }
+.rev-dots button { transition: width .45s var(--spring), background .3s; }
+/* Menu: hover pill glides with a little spring, mobile menu drops open and its links arrive one by one */
+header.site-header .hpill .nav .nav-pill { transition: transform .45s var(--spring), width .35s var(--glide), opacity .2s; }
+@keyframes menuDrop { from { opacity: 0; transform: translateY(-12px) scale(.95); } to { opacity: 1; transform: none; } }
+@keyframes menuLink { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: none; } }
+@media (max-width: 780px) {
+  header.site-header .hpill .nav.open { transform-origin: top right; animation: menuDrop .45s var(--spring) both; }
+  header.site-header .hpill .nav.open a { animation: menuLink .5s var(--spring) both; }
+  header.site-header .hpill .nav.open a:nth-of-type(2) { animation-delay: .05s; }
+  header.site-header .hpill .nav.open a:nth-of-type(3) { animation-delay: .1s; }
+  header.site-header .hpill .nav.open a:nth-of-type(4) { animation-delay: .15s; }
+  header.site-header .hpill .nav.open a:nth-of-type(5) { animation-delay: .2s; }
+  header.site-header .hpill .nav.open a:nth-of-type(6) { animation-delay: .25s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .statement .stat-grid.is-out .stat, .statement .stat-grid.is-in .stat, .statement #slideLabel.is-in, header.site-header .hpill .nav.open, header.site-header .hpill .nav.open a { animation: none !important; }
+  .rev-sec .rev-grid.rev-live .rev-card:not(.is-on) { opacity: 1; transform: none; }
+}

@@ -56,25 +56,60 @@
   var slideLabel = document.getElementById('slideLabel');
   var dots = document.getElementById('dots');
 
-  function drawSlide(i) {
-    if (!grid) return;
-    var slide = SLIDES[i];
-    slideLabel.textContent = slide.label;
-    grid.innerHTML = '';
-    slide.stats.forEach(function (s) {
+  var reduceStats = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0, busy = false, auto = null, hold = false;
+  function fill(target, slide) {
+    target.innerHTML = '';
+    slide.stats.forEach(function (s, k) {
       var d = document.createElement('div');
       d.className = 'stat';
+      d.style.setProperty('--i', k);
+      d.style.setProperty('--r', (k % 2 ? 5 : -5) + 'deg');
       var b = document.createElement('b');
       b.textContent = s[0];
       var sp = document.createElement('span');
       sp.textContent = s[1];
       d.appendChild(b);
       d.appendChild(sp);
-      grid.appendChild(d);
+      target.appendChild(d);
     });
+  }
+  function mark(i) {
     Array.prototype.forEach.call(dots.children, function (btn, n) {
       btn.setAttribute('aria-current', n === i ? 'true' : 'false');
     });
+  }
+  /* the section keeps the height of its tallest set, so nothing jumps when the cards change */
+  function lockHeight() {
+    if (!grid) return;
+    var probe = grid.cloneNode(false);
+    probe.removeAttribute('id');
+    probe.removeAttribute('aria-live');
+    probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;left:0;top:0;min-height:0;width:' + grid.getBoundingClientRect().width + 'px';
+    grid.parentNode.appendChild(probe);
+    var max = 0;
+    SLIDES.forEach(function (sl) { fill(probe, sl); max = Math.max(max, probe.offsetHeight); });
+    grid.parentNode.removeChild(probe);
+    grid.style.minHeight = max + 'px';
+  }
+  /* cards are dealt out: the old hand lifts away, the new one drops in and settles */
+  function drawSlide(i, animate) {
+    if (!grid) return;
+    var slide = SLIDES[i];
+    if (!animate || reduceStats) {
+      current = i; mark(i); slideLabel.textContent = slide.label; fill(grid, slide); return;
+    }
+    if (busy || i === current) return;
+    busy = true; current = i; mark(i);
+    grid.classList.add('is-out'); slideLabel.classList.add('is-out');
+    setTimeout(function () {
+      slideLabel.textContent = slide.label;
+      fill(grid, slide);
+      grid.classList.remove('is-out'); slideLabel.classList.remove('is-out');
+      grid.classList.add('is-in'); slideLabel.classList.add('is-in');
+      countAll();
+      setTimeout(function () { grid.classList.remove('is-in'); slideLabel.classList.remove('is-in'); busy = false; }, 1000);
+    }, 400);
   }
 
   /* numbers count up when they appear (the final text is always the original) */
@@ -109,13 +144,27 @@
       b.type = 'button';
       b.setAttribute('aria-label', 'Show figures: ' + slide.label);
       b.innerHTML = '<i></i>';
-      b.addEventListener('click', function () { drawSlide(i); countAll(); });
+      b.addEventListener('click', function () { drawSlide(i, true); restartAuto(); });
       dots.appendChild(b);
     });
-    drawSlide(0);
+    drawSlide(0, false);
+    lockHeight();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockHeight);
+    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(lockHeight, 150); });
+
+    /* plays by itself; pauses while you hover, focus or touch it, and while it is off screen */
+    function stopAuto() { if (auto) { clearInterval(auto); auto = null; } }
+    function startAuto() {
+      if (reduceStats || hold || auto) return;
+      auto = setInterval(function () { drawSlide((current + 1) % SLIDES.length, true); }, 6500);
+    }
+    function restartAuto() { stopAuto(); startAuto(); }
+    var zone = grid.parentNode;
+    ['mouseenter', 'focusin', 'touchstart'].forEach(function (ev) { zone.addEventListener(ev, function () { hold = true; stopAuto(); }, { passive: true }); });
+    ['mouseleave', 'focusout'].forEach(function (ev) { zone.addEventListener(ev, function () { hold = false; startAuto(); }); });
     if ('IntersectionObserver' in window) {
       var seen = new IntersectionObserver(function (en) {
-        if (en[0].isIntersecting) { countAll(); seen.disconnect(); }
+        if (en[0].isIntersecting) { if (!grid.dataset.counted) { grid.dataset.counted = '1'; countAll(); } startAuto(); } else { stopAuto(); }
       }, { threshold: 0.35 });
       seen.observe(grid);
     }
@@ -339,6 +388,13 @@
     } else { start(); }
     window.addEventListener('resize', build);
     build();
+    if ('IntersectionObserver' in window) {
+      tr.classList.add('rev-live');
+      var io = new IntersectionObserver(function (en) {
+        en.forEach(function (e) { e.target.classList.toggle('is-on', e.intersectionRatio > 0.6); });
+      }, { root: tr, threshold: [0, 0.6, 1] });
+      Array.prototype.forEach.call(cards, function (c) { io.observe(c); });
+    }
   })();
 
   /* ---------- sliding pill in the main menu ---------- */
