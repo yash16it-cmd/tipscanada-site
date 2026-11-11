@@ -8,6 +8,11 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
 
+  // Netlify sets URL to the site address, so share images and the canonical link point at the right host.
+  eleventyConfig.addGlobalData("siteUrl", (process.env.URL || "https://www.tipscanada.ca").replace(/\/$/, ""));
+  // Search engines stay out until INDEXABLE=true is set at launch.
+  eleventyConfig.addGlobalData("indexable", process.env.INDEXABLE === "true");
+
   return {
     dir: { input: "src", includes: "_includes", data: "_data", output: "_site" },
   };

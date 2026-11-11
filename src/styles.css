@@ -1003,9 +1003,9 @@ header.site-header .hpill .menu-toggle { display: none; }
 
 /* ---------- The practice: scarlet band, cream stat cards in one centred row ---------- */
 .statement { background: var(--red); color: #fff7f1; padding: 120px 0 130px; }
-.statement .eyebrow-light { color: #ffd9d6; }
+.statement .eyebrow-light { color: #fff; }
 .statement h2.title { color: #fff7f1; font-size: clamp(38px, 4.8vw, 68px); max-width: 1000px; }
-.statement-in > p { color: #ffe3de; font-size: 20px; max-width: 640px; }
+.statement-in > p { color: #fff; font-size: 20px; max-width: 640px; }
 .statement #slideLabel { position: absolute; right: var(--gutter); top: -6px; font: 600 34px/1 'Caveat', cursive; letter-spacing: 0; text-transform: lowercase; color: #ffd9d6; transform: rotate(-8deg); }
 .statement .stat-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 22px; margin-top: 18px; }
 .statement .stat { background: #fbf7f2; border: 0; border-radius: 26px; padding: 28px 24px 24px; width: 240px; box-shadow: 0 20px 40px rgba(80,0,10,.28); text-align: left; }
@@ -1074,3 +1074,6 @@ header.site-header .hpill .nav .nav-pill { transition: transform .45s var(--spri
   .statement .stat-grid.is-out .stat, .statement .stat-grid.is-in .stat, .statement #slideLabel.is-in, header.site-header .hpill .nav.open, header.site-header .hpill .nav.open a { animation: none !important; }
   .rev-sec .rev-grid.rev-live .rev-card:not(.is-on) { opacity: 1; transform: none; }
 }
+
+/* a roomier hit area on the header logo */
+header.site-header .hpill .logo { padding: 8px 6px; margin-left: -6px; margin-right: 12px; }
