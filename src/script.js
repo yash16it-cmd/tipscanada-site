@@ -26,28 +26,28 @@
     {
       label: 'Since 2015',
       stats: [
-        ['[1,400+]', 'Applications prepared and filed since 2015'],
-        ['[4]', 'Licensed consultants on the public register'],
-        ['[92%]', 'Of clients came through a personal referral'],
-        ['[12]', 'Languages spoken across our small team']
+        ['1,400+', 'Applications prepared and filed since 2015'],
+        ['4', 'Licensed consultants on the public register'],
+        ['92%', 'Of clients came through a personal referral'],
+        ['12', 'Languages spoken across our small team']
       ]
     },
     {
       label: 'Who we help',
       stats: [
-        ['[380+]', 'Families reunited through sponsorship and Super Visas'],
-        ['[26]', 'Countries our clients have arrived from'],
-        ['[210]', 'Study permits handled for college and university'],
-        ['[95%]', 'Of files submitted complete on the first attempt']
+        ['380+', 'Families reunited through sponsorship and Super Visas'],
+        ['26', 'Countries our clients have arrived from'],
+        ['210', 'Study permits handled for college and university'],
+        ['95%', 'Of files submitted complete on the first attempt']
       ]
     },
     {
       label: 'Close to home',
       stats: [
-        ['[11]', 'Years with an office on Derry Road, Mississauga'],
-        ['[600+]', 'Consultations held in Punjabi, Hindi or Urdu'],
-        ['[48h]', 'Typical wait for a first assessment call'],
-        ['[4.9]', 'Average Google rating across [000] reviews']
+        ['11', 'Years with an office on Derry Road, Mississauga'],
+        ['600+', 'Consultations held in Punjabi, Hindi or Urdu'],
+        ['48h', 'Typical wait for a first assessment call'],
+        ['4.9', 'Average Google rating across [000] reviews']
       ]
     }
   ];
