@@ -1000,3 +1000,25 @@ header.site-header .hpill .menu-toggle { display: none; }
   header.site-header .hpill .nav a:hover, header.site-header .hpill .nav a:active { background: var(--tint); color: var(--teal-deep); }
   header.site-header .hpill .nav .nav-pill { display: none; }
 }
+
+/* ---------- The practice: scarlet band, cream stat cards in one centred row ---------- */
+.statement { background: var(--red); color: #fff7f1; padding: 120px 0 130px; }
+.statement .eyebrow-light { color: #ffd9d6; }
+.statement h2.title { color: #fff7f1; font-size: clamp(38px, 4.8vw, 68px); max-width: 1000px; }
+.statement-in > p { color: #ffe3de; font-size: 20px; max-width: 640px; }
+.statement #slideLabel { position: absolute; right: var(--gutter); top: -6px; font: 600 34px/1 'Caveat', cursive; letter-spacing: 0; text-transform: lowercase; color: #ffd9d6; transform: rotate(-8deg); }
+.statement .stat-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 22px; margin-top: 18px; }
+.statement .stat { background: #fbf7f2; border: 0; border-radius: 26px; padding: 28px 24px 24px; width: 240px; box-shadow: 0 20px 40px rgba(80,0,10,.28); text-align: left; }
+.statement .stat:nth-child(even) { width: 200px; }
+.statement .stat b { font-size: 64px; line-height: 1; margin-bottom: 12px; color: var(--ink); white-space: nowrap; }
+.statement .stat:nth-child(odd) b { color: var(--red); }
+.statement .stat:nth-child(even) b { font-size: 54px; }
+.statement .stat span { font-size: 15px; color: #4a4250; }
+.statement .dots button i { background: rgba(255,255,255,.45); }
+.statement .dots button[aria-current="true"] i { background: #fff; }
+.statement .note { color: #fff; }
+@media (max-width: 900px) {
+  .statement #slideLabel { position: static; transform: rotate(-4deg); font-size: 30px; }
+  .statement .stat, .statement .stat:nth-child(even) { width: calc(50% - 11px); box-sizing: border-box; padding: 22px 18px 20px; }
+  .statement .stat b, .statement .stat:nth-child(even) b { font-size: 44px; }
+}
