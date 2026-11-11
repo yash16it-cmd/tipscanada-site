@@ -750,3 +750,5 @@ html.js .rev-ctl { display: flex; }
   .pc--toronto img { height: 200px !important; }
   .pc--niagara img { height: 170px !important; }
 }
+.site-footer a.logo { display: block; width: fit-content; padding: 0; margin-bottom: 14px; }
+.foot-grid > div:first-child > span { display: block; }
