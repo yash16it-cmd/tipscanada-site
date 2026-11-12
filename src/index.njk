@@ -396,13 +396,24 @@ description: "Licensed Canadian immigration consultants (RCICs) in Mississauga. 
 
   <div class="foot-arc" id="footArc">
     <h2 class="sr-only">Licensed guidance for your journey</h2>
-    <div class="arc-box"><svg class="arc-svg" viewBox="0 0 1600 640" preserveAspectRatio="xMidYMin meet" aria-hidden="true" focusable="false">
-      <defs><path id="arcPath" d="M800 2410 A1150 1150 0 0 1 800 130 A1150 1150 0 0 1 800 2410"/></defs>
-      <g class="arc-g">
-        <text class="arc-t" text-anchor="end"><textPath href="#arcPath" startOffset="48%">LICENSED GUIDANCE</textPath></text>
-        <text class="arc-t" text-anchor="start"><textPath href="#arcPath" startOffset="52%">FOR YOUR JOURNEY</textPath></text>
-      </g>
-    </svg><div class="arc-logo" aria-hidden="true"><div class="arc-logo-x"><div class="arc-logo-y"><span class="wm"><span class="wm-t">T<svg viewBox="0 0 30 100" fill="currentColor" focusable="false"><rect x="14" y="0" width="2.4" height="24"/><rect x="5" y="24" width="20" height="9" rx="4.5"/><rect x="12" y="33" width="6" height="8"/><polygon points="11,41 19,41 21,100 9,100"/></svg>PS</span><span class="wm-s">IMMIGRATION</span></span></div></div></div></div>
+    <div class="arc-box">
+      <svg class="arc-svg" viewBox="0 0 1600 640" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="arcPath" d="M800 2410 A1150 1150 0 0 1 800 130 A1150 1150 0 0 1 800 2410"/>
+          <g id="arcLogo" fill="currentColor">
+            <text class="arc-lt" text-anchor="end" x="-13" y="-16">T</text>
+            <g transform="translate(-11.5 -92.5) scale(.765)"><rect x="14" y="0" width="2.4" height="24"/><rect x="5" y="24" width="20" height="9" rx="4.5"/><rect x="12" y="33" width="6" height="8"/><polygon points="11,41 19,41 21,100 9,100"/></g>
+            <text class="arc-lt" text-anchor="start" x="13" y="-16">PS</text>
+            <text class="arc-ls" text-anchor="middle" x="0" y="0">IMMIGRATION</text>
+          </g>
+        </defs>
+        <text class="arc-t arc-m" x="0" y="0" visibility="hidden">M</text>
+        <g class="arc-g" id="arcG">
+          <text class="arc-t"><textPath href="#arcPath" startOffset="2700">LICENSED GUIDANCE</textPath></text>
+          <text class="arc-t"><textPath href="#arcPath" startOffset="3900">FOR YOUR JOURNEY</textPath></text>
+        </g>
+      </svg>
+    </div>
     <div class="arc-in">
       <p>Licensed consultants &middot; Mississauga, Ontario</p>
       <a class="btn arc-btn" href="#book">Book a free assessment</a>
