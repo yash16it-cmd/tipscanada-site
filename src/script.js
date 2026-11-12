@@ -417,4 +417,12 @@
     function chk() { var y = window.pageYOffset || document.documentElement.scrollTop; var n = on ? y > 12 : y > 60; if (n !== on) { on = n; hd.classList.toggle('is-small', on); } }
     window.addEventListener('scroll', chk, { passive: true }); chk();
   })();
+
+  /* footer arc: the curved headline settles into place when it scrolls into view */
+  (function () {
+    var arc = document.getElementById('footArc'); if (!arc) return;
+    if (!('IntersectionObserver' in window)) { arc.classList.add('is-on'); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { arc.classList.add('is-on'); io.disconnect(); } }); }, { threshold: 0.25 });
+    io.observe(arc);
+  })();
 })();

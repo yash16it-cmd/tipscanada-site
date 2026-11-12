@@ -1077,3 +1077,73 @@ header.site-header .hpill .nav .nav-pill { transition: transform .45s var(--spri
 
 /* a roomier hit area on the header logo */
 header.site-header .hpill .logo { padding: 8px 6px; margin-left: -6px; margin-right: 12px; }
+
+
+/* ==========================================================================
+   Entry stamp loader: a "file opened" stamp slams onto the page once per visit.
+   One animation drives the stamp, the paper jolt, the red flush and the label,
+   so they cannot drift apart. Shown only when <html> has .entry-on (first visit
+   in a session, no reduced motion, no #hash link).
+   ========================================================================== */
+@property --e-sc { syntax: '<number>'; inherits: true; initial-value: 1; }
+@property --e-rot { syntax: '<angle>'; inherits: true; initial-value: -7deg; }
+@property --e-op { syntax: '<number>'; inherits: true; initial-value: 1; }
+@property --e-jy { syntax: '<length>'; inherits: true; initial-value: 0px; }
+@property --e-hit { syntax: '<number>'; inherits: true; initial-value: 0; }
+@property --e-lab { syntax: '<number>'; inherits: true; initial-value: 1; }
+@property --e-ov { syntax: '<number>'; inherits: true; initial-value: 1; }
+#entry { display: none; }
+html.entry-on { overflow: hidden; }
+html.entry-on #entry { display: block; position: fixed; inset: 0; z-index: 9999; background: #fbf7f2; opacity: var(--e-ov); animation: entryScene 1.7s linear 1 forwards; overflow: hidden; }
+#entry .e-stage { position: absolute; inset: -30px; display: flex; align-items: center; justify-content: center; transform: translateY(var(--e-jy)); background-image: repeating-linear-gradient(0deg, transparent 0 31px, rgba(23,19,28,.05) 31px 32px), radial-gradient(620px 420px at 50% 40%, rgba(255,255,255,.9), transparent); }
+#entry .e-stampwrap { position: relative; width: min(520px, 84vw); mix-blend-mode: multiply; opacity: var(--e-op); transform: rotate(var(--e-rot)) scale(var(--e-sc)); }
+#entry .e-stamp { display: block; width: 100%; height: auto; }
+#entry .e-ghost { position: absolute; width: min(520px, 84vw); opacity: .1; transform: rotate(11deg) translate(-90px, -120px) scale(.62); }
+#entry .e-hit { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(460px 330px at 50% 50%, rgba(212,42,47,.28), transparent 70%); opacity: var(--e-hit); }
+#entry .e-open { position: absolute; left: 0; right: 0; bottom: calc(50% - 270px); text-align: center; font: 600 13px/1 'JetBrains Mono', monospace; letter-spacing: .16em; color: #4a4250; opacity: var(--e-lab); }
+@media (max-width: 560px) { #entry .e-open { bottom: calc(50% - 210px); } }
+@keyframes entryScene {
+  0%    { --e-op: 0; --e-sc: 1.9; --e-rot: -14deg; --e-jy: 0px; --e-hit: 0; --e-lab: 0; --e-ov: 1; animation-timing-function: ease-out; }
+  4%    { --e-op: 1; --e-sc: 1.8; --e-rot: -13deg; --e-jy: 0px; --e-hit: 0; --e-lab: 0; --e-ov: 1; animation-timing-function: cubic-bezier(.7,0,.95,.6); }
+  26%   { --e-op: 1; --e-sc: 1; --e-rot: -7deg; --e-jy: 0px; --e-hit: 0; --e-lab: 0; --e-ov: 1; animation-timing-function: linear; }
+  26.5% { --e-op: 1; --e-sc: 1; --e-rot: -7deg; --e-jy: 7px; --e-hit: 1; --e-lab: 0; --e-ov: 1; animation-timing-function: cubic-bezier(.2,.7,.3,1); }
+  38%   { --e-jy: 0px; --e-hit: .55; --e-lab: 0; }
+  50%   { --e-jy: 0px; --e-hit: 0; --e-lab: 1; }
+  76%   { --e-op: 1; --e-sc: 1; --e-rot: -7deg; --e-jy: 0px; --e-hit: 0; --e-lab: 1; --e-ov: 1; }
+  100%  { --e-op: 1; --e-sc: 1; --e-rot: -7deg; --e-jy: 0px; --e-hit: 0; --e-lab: 1; --e-ov: 0; }
+}
+
+
+/* ==========================================================================
+   Footer: scarlet closing band with big curved type (after the Gravelle du
+   Parc footer idea), the tower mark at the top of the arc and one action.
+   ========================================================================== */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; padding: 0; }
+.site-footer { position: relative; isolation: isolate; background: var(--red); border-top: 0; color: #fff; overflow: hidden; }
+.site-footer::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(700px 420px at 12% 0%, rgba(255,255,255,.14), transparent 70%), url(/images/contours.svg) center / cover no-repeat; }
+.site-footer .wrap.foot-top { padding-top: 72px; padding-bottom: 8px; }
+.site-footer .wrap.foot-bottom { padding-top: 0; padding-bottom: 36px; }
+.site-footer .foot-grid, .site-footer .foot-grid strong, .site-footer .foot-grid a, .site-footer .foot-grid span { color: #fff; }
+.site-footer .foot-grid a { text-decoration: none; opacity: .92; }
+.site-footer .foot-grid a:hover { color: #fff; opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+.site-footer a.foot-logo { display: block; width: fit-content; padding: 0; margin-bottom: 16px; color: #fff; font-size: 34px; }
+.site-footer .foot-logo .wm-t, .site-footer .foot-logo .wm-s { color: #fff; }
+.site-footer .legal { color: rgba(255,255,255,.82); border-top: 1px solid rgba(255,255,255,.28); }
+.foot-arc { position: relative; height: clamp(360px, 40vw, 600px); color: #fff6ee; }
+.arc-svg { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: max(100%, 1000px); height: 100%; display: block; overflow: hidden; }
+.arc-t { font: 800 80px/1 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: -.01em; fill: currentColor; }
+.arc-mark { color: #fff; }
+.arc-g { transform-origin: 800px 1280px; transform-box: view-box; }
+html.js .foot-arc:not(.is-on) .arc-g { transform: rotate(-9deg); opacity: 0; }
+html.js .foot-arc.is-on .arc-g { transition: transform 1.1s cubic-bezier(.34,1.56,.64,1), opacity .5s ease-out; }
+.arc-in { position: absolute; left: 0; right: 0; top: 52%; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; padding: 0 16px; }
+.arc-in p { margin: 0; font-size: 17px; font-weight: 600; color: #fff; }
+.site-footer .arc-btn { display: inline-flex; align-items: center; justify-content: center; line-height: 1; white-space: nowrap; padding: 0 30px; min-height: 56px; background: #fff; color: var(--red-dark); box-shadow: 0 10px 26px rgba(80,10,14,.28); }
+.site-footer .arc-btn:hover { background: #fff6ee; color: var(--red-dark); transform: translateY(-2px); }
+@media (max-width: 700px) { .foot-arc { height: 420px; } .arc-in { top: 58%; } }
+@media (prefers-reduced-motion: reduce) { html.js .foot-arc:not(.is-on) .arc-g { transform: none; opacity: 1; } }
+@media (max-width: 900px) {
+  body { padding-bottom: 0; }
+  .site-footer .wrap.foot-bottom { padding-bottom: 120px; }
+}
+@media (max-width: 700px) { .arc-svg { width: 640px; height: auto; aspect-ratio: 1600 / 640; } .arc-in { top: 50%; } }
